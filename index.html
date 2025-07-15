@@ -6,7 +6,8 @@
   <title>Football Match Result Generator</title>
    <!-- Google Fonts (Poppins for clean UI) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -151,6 +152,14 @@
       reader.readAsDataURL(file);
     });
 
+    // Load custom font for canvas
+const antonFont = new FontFace('Anton', 'url(https://fonts.gstatic.com/s/anton/v24/1Ptgg87LROyAm0K08i4gS7lu.woff2)');
+
+antonFont.load().then(function (loadedFont) {
+  document.fonts.add(loadedFont);
+  addMatchDetails(); // Re-render after font is loaded
+});
+
     function addMatchDetails() {
       const homeTeam = document.getElementById('homeTeam').value || 'Home Team';
       const homeScore = document.getElementById('homeScore').value || '0';
@@ -174,7 +183,7 @@
       ctx.fillRect(0, startY - 150, canvas.width, 630);
 
       // Draw team names
-      ctx.font = "250px Arial Black";
+      ctx.font = "250px Anton";
       ctx.textAlign = "center";
       ctx.strokeStyle = "black";
       ctx.lineWidth = 6;
@@ -183,7 +192,7 @@
       ctx.fillText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
 
       // Draw scores
-ctx.font = "350px Arial Black";
+ctx.font = "350px Anton";
       ctx.strokeText(`${homeScore} - ${awayScore}`, centerX, startY + spacing);
       ctx.fillText(`${homeScore} - ${awayScore}`, centerX, startY + spacing);
     }
