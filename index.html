@@ -1,209 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Football Match Result Generator</title>
-   <!-- Google Fonts (Poppins for clean UI) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="icon" type="image/x-icon" href="/logos/kponkiuslogo.png">
+<title>Kponkius Match Fixtures Generator</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background: linear-gradient(to bottom right, #2c3e50, #3498db);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+  }
+  h2 { margin-bottom: 20px; }
+  .container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 25px 30px;
+    max-width: 850px;
+    margin: auto;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+  }
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  input[type="text"], select, input[type="file"], input[list], input[type="number"] {
+    width: 100%;
+    padding: 14px 12px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.2);
+  }
   
-}
-    
-    body {
-      background: linear-gradient(to bottom right, #2c3e50, #3498db);
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      margin: 0;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 25px 30px;
-      max-width: 700px;
-      margin: auto;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
-    }
-
-    .form-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    input[type="file"] {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ecf0f1;
-      color: #333;
-      width: 100%;
-    }
-
-    input[type="file"] {
-      background-color: #fff;
-      padding: 8px;
-    }
-
-    button {
-      width: 48%;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #27ae60;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #1e8d4d;
-      transform: scale(1.03);
-    }
-
-    canvas {
-      margin-top: 30px;
-      border-radius: 12px;
-      max-width: 100%;
-      width: 100%;
-      border: 2px solid #fff;
-    }
-
-    @media (max-width: 600px) {
-      .form-group {
-        grid-template-columns: 1fr;
-      }
-
-      button {
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-    }
-  </style>
+  button {
+    width: 48%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #27ae60;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+  button:hover { background-color: #1e8d4d; transform: scale(1.03); }
+  canvas {
+    margin-top: 30px;
+    border-radius: 12px;
+    max-width: 100%;
+    width: 100%;
+    border: 2px solid #fff;
+  }
+  @media (max-width: 600px) {
+    .form-group { grid-template-columns: 1fr; }
+    button { width: 100%; }
+  }
+</style>
 </head>
 <body>
 
-  <h2>🏆 Football Match Result Generator</h2>
+<h2>🏆 KPONKIUS Match Fixtures Generator</h2>
 
-  <div class="container">
-    <input type="file" id="imageUploader" accept="image/*"><br><br>
+<div class="container">
+   <input type="file" id="imageUploader" accept="image/*" hidden/><br><br>
+  <div class="form-group">
+  <select id="competitionSelect">
+    <option value=""> Select League</option>
+    <option value="premier">Premier League</option>
+    <option value="ucl">Champions League</option>
+    <option value="laliga">La Liga</option>
+    <option value="seriea">Serie A</option>
+    <option value="bundesliga">Bundesliga</option>
+    <option value="facup">FA Cup</option>
+    <option value="supercup">Super Cup</option>
+    <option value="uel">Europa League</option>
+    <option value="conference">Conference League</option>
+    <option value="efl">EFL Cup</option>
+    <option value="championship">Championship</option>
+  </select>
+</div>
 
-    <div class="form-group">
-      <input type="text" id="homeTeam" placeholder="🏠 Home Team Name">
-      <input type="text" id="awayTeam" placeholder="🚩 Away Team Name">
-    </div>
-
-    <div class="form-group">
-      <input type="number" id="homeScore" placeholder="🏠 Home Score">
-      <input type="number" id="awayScore" placeholder="🚩 Away Score">
-    </div>
-
-    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-      <button onclick="addMatchDetails()">🎨 Generate Image</button>
-      <button onclick="downloadImage()">💾 Download Image</button>
-    </div>
+<div class="form-group">
+  <input type="file" id="player1" accept="image/*" />
+  <input type="file" id="player2" accept="image/*" />
+</div>
+  <div class="form-group">
+    <input list="epl-teams" id="homeTeam" placeholder="Home Team Name" />
+    <input list="epl-teams" id="awayTeam" placeholder="Away Team Name" />
   </div>
 
-  <canvas id="canvas"></canvas>
+  <!-- Replaced time & stadium with scores -->
+  <div class="form-group">
+    <input type="number" id="homeScore" placeholder="Home Score" min="0" />
+    <input type="number" id="awayScore" placeholder="Away Score" min="0" />
+  </div>
 
-  <script>
-    const imageUploader = document.getElementById('imageUploader');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let uploadedImage = null;
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+    <button onclick="downloadImage()">💾 Download Image</button>
+  </div>
+</div>
 
-    imageUploader.addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
+<!-- Datalist for teams remains same -->
+<datalist id="epl-teams">
+  <option value="Arsenal">
+  <option value="Chelsea">
+  <option value="Liverpool">
+  <option value="Manchester City">
+  <option value="Manchester United">
+  <option value="Tottenham Hotspur">
+  <option value="Real Madrid">
+  <option value="FC Barcelona">
+  <option value="Atlético Madrid">
+  <option value="Sevilla">
+  <option value="Valencia">
+  <option value="Villarreal">
+</datalist>
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          uploadedImage = img;
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+<canvas id="canvas"></canvas>
 
-    // Load custom font for canvas
-const antonFont = new FontFace('Anton', 'url(https://fonts.gstatic.com/s/anton/v24/1Ptgg87LROyAm0K08i4gS7lu.woff2)');
+<script>
+const teamShortNames = {
+  "Arsenal": "ARSENAL",
+  "Chelsea": "CHELSEA",
+  "Liverpool": "LIVERPOOL",
+  "Manchester City": "MAN CITY",
+  "Manchester United": "MAN UNITED",
+  "Tottenham Hotspur": "TOTTENHAM",
+  "Real Madrid": "MADRID",
+  "FC Barcelona": "BARCA",
+  "Atlético Madrid": "ATLETICO",
+  "Sevilla": "SEVILLA",
+  "Valencia": "VALENCIA",
+  "Villarreal": "VILLARREAL"
+};
 
-antonFont.load().then(function (loadedFont) {
-  document.fonts.add(loadedFont);
-  addMatchDetails(); // Re-render after font is loaded
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let uploadedImage = null;
+let player1Img = null;
+let player2Img = null;
+let homeLogo = null;
+let awayLogo = null;
+
+// Team Logos Map
+const teamLogos = {
+  "Arsenal": "logos/arsenal.svg",
+  "Chelsea": "logos/chelsea.png",
+  "Liverpool": "logos/liverpool.png",
+  "Manchester City": "logos/mancity.png",
+  "Manchester United": "logos/manutd.png",
+  "Tottenham Hotspur": "logos/tottenham.svg",
+  "Real Madrid": "logos/realmadrid.png",
+  "FC Barcelona": "logos/barcelona.png",
+  "Atlético Madrid": "logos/atletico.svg",
+  "Sevilla": "logos/sevilla.png",
+  "Valencia": "logos/valencia.png",
+  "Villarreal": "logos/villarreal.png"
+};
+
+function loadImage(file, callback) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => callback(img);
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadLogo(team, callback) {
+  const path = teamLogos[team];
+  if (!path) { callback(null); return; }
+  const img = new Image();
+  img.onload = () => callback(img);
+  img.src = path;
+}
+
+document.getElementById("imageUploader").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => {
+    uploadedImage = img;
+    resizeCanvasToImage(img);
+    render();
+  });
 });
 
-    function addMatchDetails() {
-      const homeTeam = document.getElementById('homeTeam').value || 'Home Team';
-      const homeScore = document.getElementById('homeScore').value || '0';
-      const awayTeam = document.getElementById('awayTeam').value || 'Away Team';
-      const awayScore = document.getElementById('awayScore').value || '0';
+document.getElementById("player1").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => { player1Img = img; render(); });
+});
+document.getElementById("player2").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => { player2Img = img; render(); });
+});
 
-      if (!uploadedImage) {
-        alert("Please upload an image first.");
-        return;
-      }
+document.getElementById("homeTeam").addEventListener("input", e => {
+  loadLogo(e.target.value, img => { homeLogo = img; render(); });
+});
+document.getElementById("awayTeam").addEventListener("input", e => {
+  loadLogo(e.target.value, img => { awayLogo = img; render(); });
+});
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(uploadedImage, 0, 0);
+document.querySelectorAll("#homeScore, #awayScore")
+  .forEach(input => input.addEventListener("input", render));
 
-      const centerX = canvas.width / 2;
-      const startY = canvas.height * 0.83; // 30% from bottom
-      const spacing = 330;
+function resizeCanvasToImage(img) {
+  canvas.width = img.width;
+  canvas.height = img.height;
+}
 
-      // Optional background for readability
-      ctx.fillStyle = "rgba(0,0,0,0)";
-      ctx.fillRect(0, startY - 150, canvas.width, 600);
+// DRAW TEXT HELPER
+function drawTextCentered(text, y, fontSize, color = "white") {
+  ctx.font = `${fontSize}px Anton`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = color;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 6;
+  ctx.strokeText(text, canvas.width / 2, y);
+  ctx.fillText(text, canvas.width / 2, y);
+}
 
-      // Draw team names
-      ctx.font = "250px Anton";
-      ctx.textAlign = "center";
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 6;
-      ctx.fillStyle = "white";
-      ctx.strokeText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
-      ctx.fillText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
+// MERGED RENDER FUNCTION
+function render() {
+  if (!uploadedImage) return;
 
-      // Draw scores
-ctx.font = "350px Anton";
-      ctx.strokeText(`${homeScore} - ${awayScore}`, centerX, startY + spacing);
-      ctx.fillText(`${homeScore} - ${awayScore}`, centerX, startY + spacing);
-    }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
-    function downloadImage() {
-      const link = document.createElement('a');
-      link.download = 'match-result.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
-  </script>
+// --- SCOREBOARD BACKGROUND ---
+// Make scoreboard smaller
+const logoBoxSize = canvas.height * 0.3;   // ⬆️ logos slightly bigger
+const boardHeight = logoBoxSize * 1.2;      // ⬇️ scoreboard smaller
+const boardY = canvas.height * 0.55 - boardHeight / 2;
+const boardX = canvas.width * 0.25;
+const boardWidth = canvas.width * 0.5;
+
+
+const gradient = ctx.createLinearGradient(boardX, 0, boardX + boardWidth, 0);
+gradient.addColorStop(0, "#00c853");  
+gradient.addColorStop(1, "#00e5ff");  
+
+ctx.fillStyle = gradient;
+ctx.beginPath();
+ctx.roundRect(boardX, boardY, boardWidth, boardHeight, 15);
+ctx.fill();
+
+
+// --- TEAM LOGO BOXES ---
+const logoY = boardY + (boardHeight - logoBoxSize) / 2;
+const logoPadding = logoBoxSize * 0.15; // proportional padding (15% of box size)
+
+// Home logo box
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(
+  boardX + boardWidth * 0.05 - logoBoxSize / 2,
+  logoY,
+  logoBoxSize,
+  logoBoxSize,
+  20
+);
+ctx.fill();
+
+if (homeLogo) {
+  ctx.drawImage(
+    homeLogo,
+    boardX + boardWidth * 0.05 - logoBoxSize / 2 + logoPadding,
+    logoY + logoPadding,
+    logoBoxSize - logoPadding * 2,
+    logoBoxSize - logoPadding * 2
+  );
+}
+
+// Away logo box
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(
+  boardX + boardWidth * 0.95 - logoBoxSize / 2,
+  logoY,
+  logoBoxSize,
+  logoBoxSize,
+  20
+);
+ctx.fill();
+
+if (awayLogo) {
+  ctx.drawImage(
+    awayLogo,
+    boardX + boardWidth * 0.95 - logoBoxSize / 2 + logoPadding,
+    logoY + logoPadding,
+    logoBoxSize - logoPadding * 2,
+    logoBoxSize - logoPadding * 2
+  );
+}
+
+
+
+  // --- SCORES ---
+  let homeScore = document.getElementById("homeScore").value || "0";
+  let awayScore = document.getElementById("awayScore").value || "0";
+
+  ctx.font = `${Math.max(canvas.width * 0.08, 70)}px Anton`;
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(`${homeScore} - ${awayScore}`, canvas.width / 2, boardY + boardHeight / 2);
+
+// --- FULL TIME BOX ---
+const fullTimeBoxHeight = boardHeight * 0.3; 
+const fullTimeBoxWidth = boardWidth * 0.4;
+const fullTimeX = canvas.width / 2 - fullTimeBoxWidth / 2;
+const fullTimeY = boardY - fullTimeBoxHeight + 200; // spacing above scoreboard
+
+// White rounded rectangle
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(fullTimeX, fullTimeY, fullTimeBoxWidth, fullTimeBoxHeight, 30);
+ctx.fill();
+
+// Text "FULL TIME"
+ctx.font = `${Math.max(canvas.width * 0.020, 35)}px Anton`;
+ctx.fillStyle = "#000";  
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.fillText("FULL TIME", canvas.width / 2, fullTimeY + fullTimeBoxHeight / 2);
+
+
+  // --- TEAM NAMES ---
+  ctx.font = `${Math.max(canvas.width * 0.06, 45)}px Anton`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 7;
+
+  let homeTeamFull = document.getElementById("homeTeam").value;
+  let awayTeamFull = document.getElementById("awayTeam").value;
+
+  let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
+  let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
+
+  ctx.fillText(homeTeamShort, boardX + logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
+  ctx.fillText(awayTeamShort, boardX + boardWidth - logoBoxSize - logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
+
+ 
+}
+
+// DOWNLOAD FUNCTION
+function downloadImage() {
+  const link = document.createElement("a");
+  link.download = "match-fixture.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+// Competition backgrounds
+const competitionBackgrounds = {
+  premier: "logos/premier.jpg",
+  ucl: "logos/ucl.jpg",
+  laliga: "logos/laliga.jpg",
+  seriea: "logos/seriea.jpg",
+  bundesliga: "logos/bundesliga.jpg",
+  facup: "logos/facup.jpg",
+  supercup: "logos/supercup.jpg",
+  uel: "logos/uel.jpg",
+  conference: "logos/conference.jpg",
+  efl: "logos/efl.jpg",
+  championship: "logos/championship.jpg"
+};
+
+// Change competition background
+document.getElementById("competitionSelect").addEventListener("change", e => {
+  const selected = e.target.value;
+  const path = competitionBackgrounds[selected];
+  if (path) {
+    const img = new Image();
+    img.onload = function() {
+      uploadedImage = img;
+      resizeCanvasToImage(img);
+      render();
+    };
+    img.src = path;
+  }
+});
+
+// Default background (Premier League)
+window.onload = function() {
+  const img = new Image();
+  img.onload = function() {
+    uploadedImage = img;
+    resizeCanvasToImage(img);
+    render();
+  };
+  img.src = competitionBackgrounds.premier;
+};
+</script>
 
 </body>
 </html>
