@@ -120,6 +120,7 @@
 
   <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
     <button onclick="downloadImage()">💾 Download Image</button>
+    <button onclick="shareImage()">📤 Share</button>
   </div>
 </div>
 
@@ -891,6 +892,25 @@ const teamLogos = {
 "Samsunspor": "logos/samsunspor.png",
 "Istanbulspor": "logos/istanbulspor.png",
 
+// Primeira Liga (Portugal)
+"Benfica": "logos/benfica.png",
+"FC Porto": "logos/porto.png",
+"Sporting CP": "logos/sporting.png",
+"SC Braga": "logos/braga.png",
+"Vitória SC": "logos/vitoria_guimaraes.png",
+"Boavista": "logos/boavista.png",
+"FC Famalicão": "logos/famalicao.png",
+"Gil Vicente": "logos/gil_vicente.png",
+"Rio Ave": "logos/rio_ave.png",
+"Marítimo": "logos/maritimo.png",
+"Paços de Ferreira": "logos/pacos_ferreira.png",
+"Estoril Praia": "logos/estoril.png",
+"Casa Pia": "logos/casa_pia.png",
+"Portimonense": "logos/portimonense.png",
+"Vizela": "logos/vizela.png",
+"Chaves": "logos/chaves.png",
+"Arouca": "logos/arouca.png",
+"Farense": "logos/farense.png",
 
  // Belgium Pro League
 "Anderlecht": "logos/anderlecht.png",
@@ -1059,6 +1079,20 @@ if (awayLogo) {
   ctx.textBaseline = "middle";
   ctx.fillText(`${homeScore} - ${awayScore}`, canvas.width / 2, boardY + boardHeight / 2);
 
+  let resultText = "";
+if (homeScore > awayScore) resultText = "HOME WIN";
+else if (homeScore < awayScore) resultText = "AWAY WIN";
+else resultText = "DRAW";
+
+ctx.font = `${Math.max(canvas.width * 0.025, 20)}px Anton`;
+ctx.fillStyle = "white";
+ctx.fillText(resultText, canvas.width / 2, boardY + boardHeight -120);
+
+
+ctx.font = "155px Anton";
+ctx.fillStyle = "rgba(255,255,255,0.3)";
+ctx.fillText("KPONKIUS GRAPHICS", canvas.width - 200, canvas.height - 20);
+
 // --- FULL TIME BOX ---
 const fullTimeBoxHeight = boardHeight * 0.3; 
 const fullTimeBoxWidth = boardWidth * 0.4;
@@ -1146,6 +1180,21 @@ window.onload = function() {
   };
   img.src = competitionBackgrounds.premier;
 };
+
+function shareImage() {
+  canvas.toBlob(blob => {
+    const file = new File([blob], "match.png", { type: "image/png" });
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Match Result",
+        files: [file]
+      });
+    } else {
+      alert("Sharing not supported on this device");
+    }
+  });
+}
 </script>
 
 </body>
