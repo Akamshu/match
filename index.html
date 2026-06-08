@@ -1174,14 +1174,18 @@ ctx.fill();
 
 
 // --- TEAM LOGO BOXES ---
+// --- TEAM LOGO BOXES ---
 const logoY = boardY + (boardHeight - logoBoxSize) / 2;
-const logoPadding = logoBoxSize * 0.15; // proportional padding (15% of box size)
+const logoPadding = logoBoxSize * 0.15;
+
+// Home Logo Position
+const homeLogoX = boardX + boardWidth * 0.05 - logoBoxSize / 2;
 
 // Home logo box
 ctx.fillStyle = "white";
 ctx.beginPath();
 ctx.roundRect(
-  boardX + boardWidth * 0.05 - logoBoxSize / 2,
+  homeLogoX,
   logoY,
   logoBoxSize,
   logoBoxSize,
@@ -1192,18 +1196,32 @@ ctx.fill();
 if (homeLogo) {
   ctx.drawImage(
     homeLogo,
-    boardX + boardWidth * 0.05 - logoBoxSize / 2 + logoPadding,
+    homeLogoX + logoPadding,
     logoY + logoPadding,
     logoBoxSize - logoPadding * 2,
     logoBoxSize - logoPadding * 2
   );
 }
 
+// Home Team Name
+ctx.fillStyle = "white";
+ctx.font = "bold 32px Arial";
+ctx.textAlign = "center";
+ctx.fillText(
+  homeTeam,
+  homeLogoX + logoBoxSize / 2,
+  logoY + logoBoxSize + 40
+);
+
+
+// Away Logo Position
+const awayLogoX = boardX + boardWidth * 0.95 - logoBoxSize / 2;
+
 // Away logo box
 ctx.fillStyle = "white";
 ctx.beginPath();
 ctx.roundRect(
-  boardX + boardWidth * 0.95 - logoBoxSize / 2,
+  awayLogoX,
   logoY,
   logoBoxSize,
   logoBoxSize,
@@ -1214,11 +1232,22 @@ ctx.fill();
 if (awayLogo) {
   ctx.drawImage(
     awayLogo,
-    boardX + boardWidth * 0.95 - logoBoxSize / 2 + logoPadding,
+    awayLogoX + logoPadding,
     logoY + logoPadding,
     logoBoxSize - logoPadding * 2,
     logoBoxSize - logoPadding * 2
   );
+}
+
+// Away Team Name
+ctx.fillStyle = "white";
+ctx.font = "bold 32px Arial";
+ctx.textAlign = "center";
+ctx.fillText(
+  awayTeam,
+  awayLogoX + logoBoxSize / 2,
+  logoY + logoBoxSize + 40
+);
 }
 
 
