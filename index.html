@@ -1147,6 +1147,33 @@ function drawTextCentered(text, y, fontSize, color = "white") {
   ctx.fillText(text, canvas.width / 2, y);
 }
 
+function drawImageCover(ctx, img, x, y, w, h) {
+  const imgRatio = img.width / img.height;
+  const boxRatio = w / h;
+
+  let sx, sy, sw, sh;
+
+  if (imgRatio > boxRatio) {
+    // Image is wider
+    sh = img.height;
+    sw = sh * boxRatio;
+    sx = (img.width - sw) / 2;
+    sy = 0;
+  } else {
+    // Image is taller
+    sw = img.width;
+    sh = sw / boxRatio;
+    sx = 0;
+    sy = (img.height - sh) / 2;
+  }
+
+  ctx.drawImage(
+    img,
+    sx, sy, sw, sh,
+    x, y, w, h
+  );
+}
+ 
 // MERGED RENDER FUNCTION
 function render() {
   if (!uploadedImage) return;
@@ -1196,13 +1223,14 @@ ctx.roundRect(
 ctx.fill();
 
 if (homeLogo) {
-  ctx.drawImage(
-    homeLogo,
-    homeLogoX + logoPadding,
-    logoY + logoPadding,
-    logoBoxSize - logoPadding * 2,
-    logoBoxSize - logoPadding * 2
-  );
+drawImageCover(
+  ctx,
+  homeLogo,
+  homeLogoX,
+  logoY,
+  logoBoxSize,
+  logoBoxSize
+);
 }
 
 // ===============================
@@ -1248,13 +1276,14 @@ ctx.roundRect(
 ctx.fill();
 
 if (awayLogo) {
-  ctx.drawImage(
-    awayLogo,
-    awayLogoX + logoPadding,
-    logoY + logoPadding,
-    logoBoxSize - logoPadding * 2,
-    logoBoxSize - logoPadding * 2
-  );
+drawImageCover(
+  ctx,
+  awayLogo,
+  awayLogoX,
+  logoY,
+  logoBoxSize,
+  logoBoxSize
+);
 }
 
 // ===============================
