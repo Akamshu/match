@@ -1205,14 +1205,30 @@ if (homeLogo) {
   );
 }
 
-// Home Team Name
-ctx.fillStyle = "white";
-ctx.font = "bold 32px Arial";
+// ===============================
+// HOME TEAM NAME
+// ===============================
+ctx.font = `bold ${Math.max(canvas.width * 0.018, 28)}px Anton`;
 ctx.textAlign = "center";
-ctx.fillText(
-  homeTeam,
+ctx.textBaseline = "top";
+
+// Dark stroke for visibility
+ctx.lineWidth = 6;
+ctx.strokeStyle = "black";
+
+// Gold color looks good on most football graphics
+ctx.fillStyle = "#FFD700";
+
+ctx.strokeText(
+  teamShortNames[homeTeam] || homeTeam,
   homeLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 40
+  logoY + logoBoxSize + 20
+);
+
+ctx.fillText(
+  teamShortNames[homeTeam] || homeTeam,
+  homeLogoX + logoBoxSize / 2,
+  logoY + logoBoxSize + 20
 );
 
 
@@ -1241,14 +1257,19 @@ if (awayLogo) {
   );
 }
 
-// Away Team Name
-ctx.fillStyle = "white";
-ctx.font = "bold 32px Arial";
-ctx.textAlign = "center";
-ctx.fillText(
-  awayTeam,
+// ===============================
+// AWAY TEAM NAME
+// ===============================
+ctx.strokeText(
+  teamShortNames[awayTeam] || awayTeam,
   awayLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 40
+  logoY + logoBoxSize + 20
+);
+
+ctx.fillText(
+  teamShortNames[awayTeam] || awayTeam,
+  awayLogoX + logoBoxSize / 2,
+  logoY + logoBoxSize + 20
 );
 
 
