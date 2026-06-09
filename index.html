@@ -1204,47 +1204,53 @@ if (homeLogo) {
     logoBoxSize - logoPadding * 2
   );
 }
-// ===============================
-// HOME TEAM NAME
-// ===============================
-ctx.font = `bold ${Math.max(canvas.width * 0.018, 28)}px Anton`;
+
+// Home Team Name
+ctx.fillStyle = "white";
+ctx.font = "bold 32px Arial";
 ctx.textAlign = "center";
-ctx.textBaseline = "top";
-
-// Dark stroke for visibility
-ctx.lineWidth = 6;
-ctx.strokeStyle = "black";
-
-// Gold color looks good on most football graphics
-ctx.fillStyle = "#FFD700";
-
-ctx.strokeText(
-  teamShortNames[homeTeam] || homeTeam,
-  homeLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 20
-);
-
 ctx.fillText(
-  teamShortNames[homeTeam] || homeTeam,
+  homeTeam,
   homeLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 20
+  logoY + logoBoxSize + 40
 );
 
 
-// ===============================
-// AWAY TEAM NAME
-// ===============================
-ctx.strokeText(
-  teamShortNames[awayTeam] || awayTeam,
-  awayLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 20
-);
+// Away Logo Position
+const awayLogoX = boardX + boardWidth * 0.95 - logoBoxSize / 2;
 
+// Away logo box
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(
+  awayLogoX,
+  logoY,
+  logoBoxSize,
+  logoBoxSize,
+  20
+);
+ctx.fill();
+
+if (awayLogo) {
+  ctx.drawImage(
+    awayLogo,
+    awayLogoX + logoPadding,
+    logoY + logoPadding,
+    logoBoxSize - logoPadding * 2,
+    logoBoxSize - logoPadding * 2
+  );
+}
+
+// Away Team Name
+ctx.fillStyle = "white";
+ctx.font = "bold 32px Arial";
+ctx.textAlign = "center";
 ctx.fillText(
-  teamShortNames[awayTeam] || awayTeam,
+  awayTeam,
   awayLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize + 20
+  logoY + logoBoxSize + 40
 );
+
 
 
 
@@ -1292,7 +1298,24 @@ ctx.textBaseline = "middle";
 ctx.fillText("FULL TIME", canvas.width / 2, fullTimeY + fullTimeBoxHeight / 2);
 
 
+  // --- TEAM NAMES ---
+  ctx.font = `${Math.max(canvas.width * 0.06, 45)}px Anton`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 7;
 
+  let homeTeamFull = document.getElementById("homeTeam").value;
+  let awayTeamFull = document.getElementById("awayTeam").value;
+
+  let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
+  let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
+
+  ctx.fillText(homeTeamShort, boardX + logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
+  ctx.fillText(awayTeamShort, boardX + boardWidth - logoBoxSize - logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
+
+ 
+}
 
 // DOWNLOAD FUNCTION
 function downloadImage() {
