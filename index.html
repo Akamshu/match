@@ -1203,6 +1203,8 @@ const homeTeam = document.getElementById("homeTeam").value;
 const awayTeam = document.getElementById("awayTeam").value;
 const logoY = boardY + (boardHeight - logoBoxSize) / 2;
 const logoPadding = logoBoxSize * 0.15;
+ const logoAreaHeight = logoBoxSize * 0.85;
+const nameAreaHeight = logoBoxSize * 0.15;
 
 // Home Logo Position
 const homeLogoX = boardX + boardWidth * 0.05 - logoBoxSize / 2;
@@ -1219,42 +1221,47 @@ ctx.roundRect(
 );
 ctx.fill();
 
+// Divider line
+ctx.strokeStyle = "#ddd";
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(homeLogoX, logoY + logoAreaHeight);
+ctx.lineTo(homeLogoX + logoBoxSize, logoY + logoAreaHeight);
+ctx.stroke();
+
+// Logo (85%)
 if (homeLogo) {
-drawImageContain(
-  ctx,
-  homeLogo,
-  homeLogoX,
-  logoY,
-  logoBoxSize,
-  logoBoxSize,
-  logoBoxSize * 0.12
-);
+  drawImageContain(
+    ctx,
+    homeLogo,
+    homeLogoX,
+    logoY,
+    logoBoxSize,
+    logoAreaHeight,
+    logoBoxSize * 0.05
+  );
 }
 
-// ===============================
-// HOME TEAM NAME
-// ===============================
-ctx.font = `bold ${Math.max(canvas.width * 0.018, 28)}px Anton`;
+// Team Name (15%)
+ctx.font = `bold ${Math.max(canvas.width * 0.010, 16)}px Anton`;
 ctx.textAlign = "center";
-ctx.textBaseline = "top";
-
-// Dark stroke for visibility
-ctx.lineWidth = 6;
+ctx.textBaseline = "middle";
+ctx.lineWidth = 3;
 ctx.strokeStyle = "black";
+ctx.fillStyle = "#222";
 
-// Gold color looks good on most football graphics
-ctx.fillStyle = "#ccc";
+const homeNameY = logoY + logoAreaHeight + (nameAreaHeight / 2);
 
 ctx.strokeText(
   teamShortNames[homeTeam] || homeTeam,
   homeLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize - 45
+  homeNameY
 );
 
 ctx.fillText(
   teamShortNames[homeTeam] || homeTeam,
   homeLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize -45 
+  homeNameY
 );
 
 
@@ -1273,31 +1280,40 @@ ctx.roundRect(
 );
 ctx.fill();
 
+// Divider line
+ctx.strokeStyle = "#ddd";
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(awayLogoX, logoY + logoAreaHeight);
+ctx.lineTo(awayLogoX + logoBoxSize, logoY + logoAreaHeight);
+ctx.stroke();
+
+// Logo (85%)
 if (awayLogo) {
-drawImageContain(
-  ctx,
-  awayLogo,
-  awayLogoX,
-  logoY,
-  logoBoxSize,
-  logoBoxSize,
-  logoBoxSize * 0.12
-);
+  drawImageContain(
+    ctx,
+    awayLogo,
+    awayLogoX,
+    logoY,
+    logoBoxSize,
+    logoAreaHeight,
+    logoBoxSize * 0.05
+  );
 }
 
-// ===============================
-// AWAY TEAM NAME
-// ===============================
+// Team Name (15%)
+const awayNameY = logoY + logoAreaHeight + (nameAreaHeight / 2);
+
 ctx.strokeText(
   teamShortNames[awayTeam] || awayTeam,
   awayLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize -45
+  awayNameY
 );
 
 ctx.fillText(
   teamShortNames[awayTeam] || awayTeam,
   awayLogoX + logoBoxSize / 2,
-  logoY + logoBoxSize -45
+  awayNameY
 );
 
 
