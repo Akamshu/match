@@ -1246,9 +1246,9 @@ if (homeLogo) {
 ctx.font = `bold ${Math.max(canvas.width * 0.010, 16)}px Anton`;
 ctx.textAlign = "center";
 ctx.textBaseline = "middle";
-ctx.lineWidth = 3;
-ctx.strokeStyle = "black";
-ctx.fillStyle = "#222";
+ctx.lineWidth = 4;
+ctx.strokeStyle = "white";
+ctx.fillStyle = "#38003c";
 
 const homeNameY = logoY + logoAreaHeight + (nameAreaHeight / 2);
 
@@ -1281,7 +1281,7 @@ ctx.roundRect(
 ctx.fill();
 
 // Divider line
-ctx.strokeStyle = "#ddd";
+ctx.strokeStyle = "yellow";
 ctx.lineWidth = 2;
 ctx.beginPath();
 ctx.moveTo(awayLogoX, logoY + logoAreaHeight);
