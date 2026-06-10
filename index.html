@@ -1201,7 +1201,6 @@ ctx.fill();
 
 
 // --- TEAM LOGO BOXES ---
-// --- TEAM LOGO BOXES ---
 const homeTeam = document.getElementById("homeTeam").value;
 const awayTeam = document.getElementById("awayTeam").value;
 const logoY = boardY + (boardHeight - logoBoxSize) / 2;
@@ -1404,21 +1403,6 @@ ctx.textBaseline = "middle";
 ctx.fillText("FULL TIME", canvas.width / 2, fullTimeY + fullTimeBoxHeight / 2);
 
 
-  // --- TEAM NAMES ---
-  ctx.font = `${Math.max(canvas.width * 0.06, 45)}px Anton`;
-  ctx.textAlign = "center";
-  ctx.fillStyle = "white";
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 7;
-
-  let homeTeamFull = document.getElementById("homeTeam").value;
-  let awayTeamFull = document.getElementById("awayTeam").value;
-
-  let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
-  let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
-
-  ctx.fillText(homeTeamShort, boardX + logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
-  ctx.fillText(awayTeamShort, boardX + boardWidth - logoBoxSize - logoMargin + logoBoxSize / 2, boardY + boardHeight + 99);
 
  
 }
