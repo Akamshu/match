@@ -100,6 +100,7 @@
     <option value="uel">Europa League</option>
     <option value="conference">Conference League</option>
     <option value="efl">EFL Cup</option>
+   <option value="rector">Rector's Cup</option>
     <option value="championship">Championship</option>
   </select>
 </div>
@@ -149,6 +150,15 @@
   <option value="West Ham United">
   <option value="Wolverhampton Wanderers">
 
+
+   <option value="Computer Science">
+   <option value="Computer Engineering">
+   <option value="Science Laboratory Technology">
+   <option value="Public Administration">
+    
+   <option value="Business Administration and Management">
+    
+   <option value="Pharmaceutical Technology">
     <!-- 2026 FIFA World Cup Qualified Countries -->
 
 <option value="Algeria">Algeria</option>
@@ -479,6 +489,15 @@
 
 <script>
 const teamShortNames = {
+
+"Computer Science": "COMPUTER SCI.",
+  "Public Administration": "PUBLIC",
+  "Business Administration and Management": "BAM",
+
+"Pharmaceutical Technology": "PHARM TECH",
+  "Computer Engineering": "COMPUTER ENG.",
+  "Science Laboratory Technology": "SLT",
+ 
    "AFC Bournemouth": "BOURNEMOUTH",
   "Arsenal": "ARSENAL",
   "Aston Villa": "ASTON VILLA",
@@ -832,6 +851,12 @@ let awayLogo = null;
 
 // Team Logos Map
 const teamLogos = {
+
+"Computer Science": "logos/cs.png",
+  "Public Administration": "logos/pa.png",
+  "Business Administration and Management": "logos/bam.png",
+  "Science Taboratory Technology": "logos/slt.png",
+ 
  "Arsenal": "logos/arsenal.svg",
   "Chelsea": "logos/chelsea.png",
   "Liverpool": "logos/liverpool.png",
@@ -1428,6 +1453,7 @@ const competitionBackgrounds = {
   uel: "logos/uel.jpg",
   conference: "logos/conference.jpg",
   efl: "logos/efl.jpg",
+ rector: "logos/rector.jpg",
   championship: "logos/championship.jpg"
 };
 
